@@ -1,4 +1,4 @@
-@bower_packages = [['select2', '3.5.4']]
+@bower_packages = [['select2', '4.0.3'], ['lodash', '4.16.6']]
 @monitoring_enabled = false
 @carrierwave_enabled = false
 
@@ -12,6 +12,9 @@ def configure_rollbar
 Rollbar.configure do |config|
   config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
   config.environment = ENV['ROLLBAR_ENV'] || Rails.env
+  config.exception_level_filters.merge!(
+    'ActionController::RoutingError': 'ignore'
+  )
 
   if Rails.env.test? || Rails.env.development?
     config.enabled = false
@@ -158,6 +161,9 @@ public/uploads
 tmp
 .DS_Store
 *.sublime-*
+.rvmrc
+stellar.yml
+.rubocop.yml
 
 # Ignore generated coverage
 /coverage
@@ -199,15 +205,20 @@ end
 
 def configure_carrierwave
   initializer 'carrierwave.rb', <<-CODE
+  require 'carrierwave/storage/fog'
 CarrierWave.configure do |config|
+  config.fog_provider = 'fog/aws'
+  config.fog_directory = ENV['AWS_S3_BUCKET']
+  config.fog_public = true
+  config.storage = :fog
+  config.cache_dir = Rails.root.join('tmp/cache')
+
   config.fog_credentials = {
     provider: 'AWS',
     aws_access_key_id: ENV['AWS_ACCESS_KEY'],
     aws_secret_access_key: ENV['AWS_SECRET_KEY'],
     region: 'eu-west-1'
   }
-  config.fog_directory = ENV['AWS_S3_BUCKET']
-  config.fog_public = true
 end
   CODE
 
@@ -225,7 +236,7 @@ remove_file 'Gemfile'
 run 'touch Gemfile'
 add_source 'https://rubygems.org'
 
-append_file 'Gemfile', "ruby \'#{ask_with_default('Which version of ruby do you want to use?', default: '2.2.3')}\'"
+append_file 'Gemfile', "ruby \'#{ask_with_default('Which version of ruby do you want to use?', default: RUBY_VERSION)}\'"
 
 gem 'rails', ask_with_default('Which version of rails do you want to use?', default: '4.2.5')
 
@@ -237,7 +248,7 @@ gem 'devise'
 gem 'pundit'
 
 # Model
-gem 'workflow'
+gem 'aasm'
 gem 'keynote'
 gem 'paranoia'
 
@@ -251,7 +262,7 @@ gem 'searchkick' if yes?("Are you going to use ElasticSearch?")
 
 # Assets
 gem 'bootstrap-sass', '~> 3.3.3'
-gem 'bootstrap-datepicker-rails', '~> 1.6.0'
+gem 'bootstrap-datepicker-rails', '~> 1.6.0' if yes?("Do you want to use Bootstrap datepicker?")
 gem 'font-awesome-sass', '~> 4.3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'modernizr-rails'
@@ -273,7 +284,7 @@ gem 'sinatra', require: nil
 if yes?("Do you want to use Carrierwave?")
   @carrierwave_enabled = true
   gem 'carrierwave'
-  gem 'fog', require: 'fog/aws/storage'
+  gem 'fog-aws'
   gem 'mini_magick' if yes?("Are you going to handle images?")
 end
 
@@ -310,7 +321,6 @@ end
 
 gem_group :development do
   gem 'spring-commands-rspec', require: false
-  gem 'web-console', '~> 2.0'
   gem 'better_errors'
 end
 
@@ -338,6 +348,9 @@ end
     end
   end
 
+  configure_database
+  configure_carrierwave if @carrierwave_enabled
+
   generate 'rspec:install'
 
   generate 'simple_form:install'
@@ -360,11 +373,10 @@ end
 
   configure_rollbar if @monitoring_enabled == :rollbar
   configure_airbrake if @monitoring_enabled == :airbrake
-  configure_database
   configure_redis
   configure_sidekiq
   configure_gitignore
-  configure_carrierwave if @carrierwave_enabled
+
 
   run 'rails g bower_rails:initialize json'
   configure_bower_resources @bower_packages
