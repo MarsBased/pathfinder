@@ -1,7 +1,4 @@
-
-puts @rails_template
-puts @options[:template]
-
+TMP_DIR = '/tmp'
 def template_local
   @template_local ||= File.exists? @rails_template
 end
@@ -10,22 +7,23 @@ def template_path
   @template_path ||= if @template_local
                         File.dirname(@rails_template)
                      else
-                       @rails_template[/^(.*)\/.*\.rb/, 1] << '/utils.rb'
+                       @rails_template[/^(.*)\/.*\.rb/, 1]
                      end
 end
 
 def clean_tmp
   return if template_local
+  @imported_files.each { |f| File.delete(File.join(TMP_DIR, "#{f}.rb")) }
 end
 
 def import_file(filename)
   require_relative(filename) if template_local
-
+  (@imported_files ||= []) << filename
+  run "wget -q #{File.join(template_path, filename)}.rb -P #{TMP_DIR}"
+  require(File.join(TMP_DIR, filename))
 end
 
-puts template_path
 import_file('utils')
-
 
 @bower_packages = [['select2', '4.0.3'], ['lodash', '4.16.6']]
 @monitoring_enabled = false
