@@ -120,8 +120,8 @@ class Pathfinder
          create_file 'application.yml.example'
          remove_file 'routes.rb'
          create_file 'routes.rb' do <<-RUBY
-     Rails.application.routes.draw do
-     end
+           Rails.application.routes.draw do
+           end
          RUBY
          end
        end
@@ -166,6 +166,9 @@ class Pathfinder
    end
 
    def self.method_missing(method_sym, *arguments, &block)
+     puts "*****"
+     puts method_sym
+     puts "*****"
      @template.send(method_sym, *arguments, &block)
    end
 
