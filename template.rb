@@ -10,8 +10,7 @@ def template_path
                      else
                        puts @rails_template
                        puts @options[:template]
-
-                        @rails_template[/^(.*)\/.*\.rb/, 1] << '/utils.rb'
+                        # @rails_template[/^(.*)\/.*\.rb/, 1] << '/utils.rb'
                      end
 end
 
