@@ -1,0 +1,28 @@
+!/log/.keep
+*.rdb
+.bundle
+config/application.yml
+config/database.yml
+config/secrets.yml
+config/secrets.*.yml
+log/*
+public/assets
+public/uploads
+tmp
+.DS_Store
+*.sublime-*
+.rvmrc
+stellar.yml
+.rubocop.yml
+
+# Ignore generated test coverage
+/coverage
+
+# Bower assets
+vendor/assets/.bowerrc
+vendor/assets/bower.json
+vendor/assets/bower_components
+
+# Bundler files
+
+vendor/bundler
