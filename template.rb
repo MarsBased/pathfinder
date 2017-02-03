@@ -1,11 +1,17 @@
+require_relative "utils"
+# puts "******"
+# puts @options[:template]
+# puts @rails_template
+# puts @original_name
+# puts @args
+# puts ARGC
+# puts @rails_template
+# puts @root
+# puts "*****"
+
 @bower_packages = [['select2', '4.0.3'], ['lodash', '4.16.6']]
 @monitoring_enabled = false
 @carrierwave_enabled = false
-
-def ask_with_default(question, default:)
-  answer = ask("#{question} (Default #{default})")
-  answer.empty? ? default : answer
-end
 
 def configure_rollbar
   initializer 'rollbar.rb', <<-CODE
@@ -231,6 +237,7 @@ end
     append_file 'application.yml', "\nAWS_S3_BUCKET: ''"
   end
 end
+
 
 remove_file 'Gemfile'
 run 'touch Gemfile'
