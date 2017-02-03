@@ -1,3 +1,4 @@
+require_relative 'recipes/base'
 require_relative 'recipes/airbrake'
 require_relative 'recipes/assets'
 require_relative 'recipes/bower_rails'

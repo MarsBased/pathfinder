@@ -1,5 +1,3 @@
-require_relative 'base'
-
 module Recipes
   class Devise < Base
 
