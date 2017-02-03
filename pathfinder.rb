@@ -4,7 +4,7 @@ class PathFinder
 
   attr_reader :template
 
-  delegate :ask, :remove_file, :run, :add_source, :append_file, :after_bundle to: :template
+  delegate :ask, :remove_file, :run, :add_source, :append_file, :after_bundle, to: :template
 
    def initialize(template)
      @template = template
