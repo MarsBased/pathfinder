@@ -112,7 +112,7 @@ class Pathfinder
        gem 'shoulda-matchers', require: false
      end
 
-     after_bundle do
+     @template.after_bundle do
        run 'spring stop'
 
        inside 'config' do
