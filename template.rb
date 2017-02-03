@@ -7,4 +7,4 @@ path = if File.exists? @rails_template
         end
 
 require(File.join(path, 'pathfinder'))
-Pathfinder.new(self).call
+Pathfinder.new(@app_name, self).call
