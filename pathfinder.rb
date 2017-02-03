@@ -2,8 +2,6 @@ class PathFinder
 
   attr_reader :template
 
-  delegate :ask, :remove_file, :run, :add_source, :append_file, :after_bundle, to: :template
-
    def initialize(template, path)
      Loader.call(path)
      @template = template
@@ -166,6 +164,10 @@ class PathFinder
 
        clean_tmp
      end
+   end
+
+   def self.method_missing(method_sym, *arguments, &block)
+     @template.send(method_sym, *arguments, &block)
    end
 
 end
