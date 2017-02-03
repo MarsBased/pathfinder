@@ -11,7 +11,7 @@ class Pathfinder
    end
 
    def load_environment
-     require File.join(path, 'utils')
+     require File.join(@path, 'utils')
    end
 
    def call
