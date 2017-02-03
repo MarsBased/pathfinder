@@ -11,7 +11,7 @@ path = if File.exists? @rails_template
         end
 
 require(File.join(path, 'pathfinder'))
-Pathfinder.new(self, path)
+Pathfinder.new(self)
 
 
 
