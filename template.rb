@@ -1,4 +1,8 @@
 TMP_DIR = '/tmp'
+@bower_packages = [['select2', '4.0.3'], ['lodash', '4.16.6']]
+@monitoring_enabled = false
+@carrierwave_enabled = false
+
 def template_local
   @template_local ||= File.exists? @rails_template
 end
@@ -24,10 +28,6 @@ def import_file(filename)
 end
 
 import_file('utils')
-
-@bower_packages = [['select2', '4.0.3'], ['lodash', '4.16.6']]
-@monitoring_enabled = false
-@carrierwave_enabled = false
 
 def configure_rollbar
   initializer 'rollbar.rb', <<-CODE
