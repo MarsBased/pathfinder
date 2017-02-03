@@ -1,4 +1,4 @@
-class PathFinder
+class Pathfinder
 
   attr_reader :template
 
