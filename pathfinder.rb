@@ -165,7 +165,7 @@ class Pathfinder
      end
    end
 
-   def self.method_missing(method_sym, *arguments, &block)
+   def method_missing(method_sym, *arguments, &block)
      puts "*****"
      puts method_sym
      puts "*****"
