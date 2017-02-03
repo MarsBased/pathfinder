@@ -2,15 +2,16 @@
 @monitoring_enabled = false
 @carrierwave_enabled = false
 
-if File.exists? @rails_template
-  require(File.join(File.dirname(@rails_template), 'pathfinder'))
-else
-  @tmp_dir = Dir.mktmpdir
-  run "git clone -b 'feature/modularize' git@github.com:MarsBased/pathfinder.git #{@tmp_dir}"
-  require(File.join(@tmp_dir, 'pathfinder'))
-end
+path = if File.exists? @rails_template
+          File.dirname(@rails_template)
+        else
+          @tmp_dir = Dir.mktmpdir
+          run "git clone -b 'feature/modularize' git@github.com:MarsBased/pathfinder.git #{@tmp_dir}"
+          @tmp_dir
+        end
 
-Pathfinder.new(self)
+require(File.join(path, 'pathfinder'))
+Pathfinder.new(self, path)
 
 
 

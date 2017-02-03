@@ -1,14 +1,15 @@
-require 'utils'
-
 class PathFinder
 
   attr_reader :template
 
   delegate :ask, :remove_file, :run, :add_source, :append_file, :after_bundle, to: :template
 
-   def initialize(template)
+   def initialize(template, path)
+     Loader.call(path)
      @template = template
      @utils = Utils.new(template)
+     @path = path
+
    end
 
    def call
