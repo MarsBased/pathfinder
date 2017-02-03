@@ -16,7 +16,7 @@ class Pathfinder
 
      append_file 'Gemfile', "ruby \'#{@utils.ask_with_default('Which version of ruby do you want to use?', default: RUBY_VERSION)}\'"
 
-     gem 'rails', Utils.ask_with_default('Which version of rails do you want to use?', default: '4.2.5')
+     gem 'rails', @utils.ask_with_default('Which version of rails do you want to use?', default: '4.2.5')
 
      # DB
      gem 'pg'
