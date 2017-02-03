@@ -1,30 +1,32 @@
 
+puts @rails_template
+puts @options[:template]
 
-def template_local
-  @template_local ||= File.exists? @rails_template
-end
-
-def template_path
-  @template_path ||= if @template_local
-                        File.dirname(@rails_template)
-                     else
-                       puts @rails_template
-                       puts @options[:template]
-                        # @rails_template[/^(.*)\/.*\.rb/, 1] << '/utils.rb'
-                     end
-end
-
-def clean_tmp
-  return if template_local
-end
-
-def import_file(filename)
-  require_relative(filename) if template_local
-
-end
-
-puts template_path
-import_file('utils')
+# def template_local
+#   @template_local ||= File.exists? @rails_template
+# end
+#
+# def template_path
+#   @template_path ||= if @template_local
+#                         File.dirname(@rails_template)
+#                      else
+#                        puts @rails_template
+#                        puts @options[:template]
+#                         # @rails_template[/^(.*)\/.*\.rb/, 1] << '/utils.rb'
+#                      end
+# end
+#
+# def clean_tmp
+#   return if template_local
+# end
+#
+# def import_file(filename)
+#   require_relative(filename) if template_local
+#
+# end
+#
+# puts template_path
+# import_file('utils')
 
 puts @rails_template
 puts template_path
