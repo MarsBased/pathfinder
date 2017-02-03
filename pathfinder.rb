@@ -1,13 +1,17 @@
+
 class Pathfinder
 
   attr_reader :template
 
    def initialize(template, path)
-     Loader.call(path)
+     load_environment
      @template = template
      @utils = Utils.new(template)
      @path = path
+   end
 
+   def load_environment
+     require File.join(path, 'utils')
    end
 
    def call
