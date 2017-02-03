@@ -2,7 +2,7 @@ path = if File.exists? @rails_template
           File.dirname(@rails_template)
         else
           @tmp_dir = Dir.mktmpdir
-          run "git clone -b 'feature/modularize' git@github.com:MarsBased/pathfinder.git #{@tmp_dir}"
+          run "git clone git@github.com:MarsBased/pathfinder.git #{@tmp_dir}"
           @tmp_dir
         end
 
