@@ -1,4 +1,4 @@
-require_relative "utils"
+require "utils"
 # puts "******"
 # puts @options[:template]
 # puts @rails_template
