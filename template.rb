@@ -7,7 +7,7 @@ def template_path
   @template_path ||= if @template_local
                         File.dirname(@rails_template)
                      else
-                        @template_local[/^(.*)\/.*\.rb/, 1] << '/utils.rb'
+                        @rails_template[/^(.*)\/.*\.rb/, 1] << '/utils.rb'
                      end
 end
 
