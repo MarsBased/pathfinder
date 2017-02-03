@@ -1,4 +1,5 @@
 
+
 def template_local
   @template_local ||= File.exists? @rails_template
 end
@@ -7,6 +8,9 @@ def template_path
   @template_path ||= if @template_local
                         File.dirname(@rails_template)
                      else
+                       puts @rails_template
+                       puts @options[:template]
+
                         @rails_template[/^(.*)\/.*\.rb/, 1] << '/utils.rb'
                      end
 end
