@@ -15,7 +15,7 @@ module Recipes
         config.fog_directory = ENV['AWS_S3_BUCKET']
         config.fog_public = true
         config.storage = :fog
-        config.cache_dir = Rails.root.join('tmp/cache')
+        config.cache_dir = Rails.root.join('tmp', 'cache')
 
         config.fog_credentials = {
           provider: 'AWS',

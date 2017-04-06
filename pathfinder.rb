@@ -3,6 +3,7 @@ require_relative 'recipes/airbrake'
 require_relative 'recipes/assets'
 require_relative 'recipes/bower_rails'
 require_relative 'recipes/carrier_wave'
+require_relative 'recipes/configuration'
 require_relative 'recipes/devise'
 require_relative 'recipes/git_ignore'
 require_relative 'recipes/postgres'
@@ -15,7 +16,7 @@ require_relative 'recipes/utils'
 
 class Pathfinder
 
-  attr_reader :template, :app_name
+  attr_reader :template, :app_name, :config
 
    def initialize(app_name, template)
      @template = template
@@ -63,6 +64,7 @@ class Pathfinder
      ask_for_recipes
      @template.instance_exec(self) do |pathfinder|
        utils = Recipes::Utils.new(self)
+       configuration = Recipes::Configuration.new(self)
 
        remove_file 'Gemfile'
        run 'touch Gemfile'
@@ -70,73 +72,14 @@ class Pathfinder
 
        append_file 'Gemfile', "ruby \'#{utils.ask_with_default('Which version of ruby do you want to use?', default: RUBY_VERSION)}\'"
 
-       gem 'rails', Rails.version
-       # Model
-       gem 'aasm'
-       gem 'keynote'
-       gem 'paranoia' if yes?('Do you want to use Soft Deletes?')
-       # Searchs
-       gem 'ransack' if yes?('Do you want to use Ransack?')
-       gem 'kaminari'
-       gem 'searchkick' if yes?('Are you going to use ElasticSearch?')
-       # Jobs
-       gem 'redis'
-       gem 'sidekiq'
-       gem 'sinatra', require: nil
-       # Emails
-       gem 'premailer-rails'
-
-       pathfinder.generate_gems
-
-       gem_group :development, :test do
-         gem 'bundler-audit', require: false
-         gem 'byebug'
-         gem 'rspec-rails'
-         gem 'spring'
-         gem 'quiet_assets'
-         gem 'figaro'
-         gem 'mailcatcher'
-         gem 'factory_girl_rails'
-         gem 'faker'
-         gem 'pry-rails'
-         gem 'pry-coolline'
-         gem 'pry-byebug'
-         gem 'rubocop', require: false
-       end
-
-       gem_group :development do
-         gem 'spring-commands-rspec', require: false
-         gem 'better_errors'
-       end
-
-       gem_group :test do
-         gem 'simplecov', require: false
-         gem 'capybara', require: false
-         gem 'capybara-webkit', require: false
-         gem 'database_cleaner', require: false
-         gem 'fakeredis', require: false
-         gem 'poltergeist', require: false
-         gem 'shoulda-matchers', require: false
+       configuration.gems do
+         pathfinder.generate_gems
        end
 
        after_bundle do
          run 'spring stop'
 
-         inside 'config' do
-           create_file 'application.yml'
-           create_file 'application.yml.example'
-           remove_file 'routes.rb'
-           create_file 'routes.rb' do <<~RUBY
-           Rails.application.routes.draw do
-           end
-           RUBY
-           end
-         end
-
-         create_file '.rubocop.yml' do <<~CODE
-         inherit_from: https://raw.githubusercontent.com/MarsBased/marstyle/master/ruby/.rubocop.yml
-         CODE
-         end
+         configuration.init_file
 
          pathfinder.generate_initializers
 

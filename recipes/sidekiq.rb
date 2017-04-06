@@ -1,7 +1,21 @@
 module Recipes
   class Sidekiq < Base
 
+    def gems
+      @template.gem 'sidekiq'
+      @template.gem 'sinatra', require: nil
+    end
+
     def init_file
+      add_initializer
+      add_configuration
+      add_sidekiq_web
+      set_job_queue
+    end
+
+    private
+
+    def add_initializer
       @template.initializer 'sidekiq.rb', <<~CODE
         redis_host = Redis.current.client.host
         redis_port = Redis.current.client.port
@@ -14,7 +28,9 @@ module Recipes
           config.redis = { url: "redis://\#{redis_host}:\#{redis_port}" }
         end
       CODE
+    end
 
+    def add_configuration
       @template.inside 'config' do
         @template.create_file 'sidekiq.yml' do <<~EOF
           ---
@@ -30,7 +46,9 @@ module Recipes
           EOF
         end
       end
+    end
 
+    def add_sidekiq_web
       @template.insert_into_file 'config/routes.rb', before: "Rails.application.routes.draw do\n" do <<~RUBY
       require 'sidekiq/web'
       RUBY
@@ -42,8 +60,13 @@ module Recipes
             mount Sidekiq::Web => '/sidekiq'
           end
         end
-        get '/404', to: 'errors#not_found'
-        get '/500', to: 'errors#internal_error'
+      RUBY
+      end
+    end
+
+    def set_job_queue
+      @template.insert_into_file 'config/application.rb', after: "class Application < Rails::Application\n" do <<~RUBY
+      \tconfig.active_job.queue_adapter = :sidekiq
       RUBY
       end
     end

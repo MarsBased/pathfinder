@@ -1,6 +1,10 @@
 module Recipes
   class Redis < Base
 
+    def gems
+      @template.gem 'redis'
+    end
+
     def init_file
       @template.initializer 'redis.rb', <<~CODE
         Redis.current = Redis.new(Rails.application.config_for(:redis))
