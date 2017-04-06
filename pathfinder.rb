@@ -16,7 +16,7 @@ require_relative 'recipes/utils'
 
 class Pathfinder
 
-  attr_reader :template, :app_name, :config
+  attr_reader :template, :app_name
 
    def initialize(app_name, template)
      @template = template
