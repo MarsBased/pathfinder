@@ -133,6 +133,11 @@ class Pathfinder
            end
          end
 
+         create_file '.rubocop.yml' do <<~CODE
+         inherit_from: https://raw.githubusercontent.com/MarsBased/marstyle/master/ruby/.rubocop.yml
+         CODE
+         end
+
          pathfinder.generate_initializers
 
          generate 'rspec:install'
