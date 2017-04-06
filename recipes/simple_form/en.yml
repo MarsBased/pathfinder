@@ -1,0 +1,20 @@
+  ### Simple form examples
+  # simple_form:
+  #   placeholders:
+  #     user:
+  #       email: 'david.bowie@marsbased.com'
+  #   labels:
+  #     defaults:
+  #       email: 'Email'
+  #     user:
+  #       email: 'Your email'
+  #   options:
+  #     user:
+  #       role:
+  #         admin: 'Administrator'
+  #   prompts:
+  #     user:
+  #       role: 'Select a Role'
+  #   hints:
+  #     user:
+  #       email: 'Must be a valid email'
