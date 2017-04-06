@@ -39,7 +39,7 @@ class Pathfinder
    def ask_for_recipes
      add_recipe(Recipes::Postgres.new(self))
 
-     add_recipe(Recipes::CarrierWave.new(self)) if @template.yes?("Do you want to use Carrierwave?")
+     add_recipe(Recipes::CarrierWave.new(self)) if @template.yes?('Do you want to use Carrierwave?')
      aux = case @template.ask('Choose Monitoring Engine:',
                     limited_to: %w(rollbar airbrake none))
            when 'rollbar'
@@ -74,11 +74,11 @@ class Pathfinder
        # Model
        gem 'aasm'
        gem 'keynote'
-       gem 'paranoia' if yes?("Do you want to use Soft Deletes?")
+       gem 'paranoia' if yes?('Do you want to use Soft Deletes?')
        # Searchs
-       gem 'ransack' if yes?("Do you want to use Ransack?")
+       gem 'ransack' if yes?('Do you want to use Ransack?')
        gem 'kaminari'
-       gem 'searchkick' if yes?("Are you going to use ElasticSearch?")
+       gem 'searchkick' if yes?('Are you going to use ElasticSearch?')
        # Jobs
        gem 'redis'
        gem 'sidekiq'
