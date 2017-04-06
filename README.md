@@ -1,4 +1,4 @@
-# Pathfinder
+# Pathfinder [![Waffle](https://img.shields.io/badge/Waffle-pathfinder-blue.svg?colorB=78bdf2)](https://waffle.io/MarsBased/pathfinder)
 
 ![Pathfinder](https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Mars_pathfinder_panorama_large.jpg/1200px-Mars_pathfinder_panorama_large.jpg)
 
