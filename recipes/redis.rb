@@ -2,12 +2,12 @@ module Recipes
   class Redis < Base
 
     def init_file
-      @template.initializer 'redis.rb', <<-CODE
+      @template.initializer 'redis.rb', <<~CODE
         Redis.current = Redis.new(Rails.application.config_for(:redis))
       CODE
 
       @template.inside 'config' do
-        @template.create_file 'redis.yml' do <<-EOF
+        @template.create_file 'redis.yml' do <<~EOF
           default: &default
             host: localhost
             port: 6379

@@ -2,7 +2,7 @@ module Recipes
   class Sidekiq < Base
 
     def init_file
-      @template.initializer 'sidekiq.rb', <<-CODE
+      @template.initializer 'sidekiq.rb', <<~CODE
         redis_host = Redis.current.client.host
         redis_port = Redis.current.client.port
 
@@ -16,7 +16,7 @@ module Recipes
       CODE
 
       @template.inside 'config' do
-        @template.create_file 'sidekiq.yml' do <<-EOF
+        @template.create_file 'sidekiq.yml' do <<~EOF
           ---
           :concurrency: 5
           :pidfile: tmp/pids/sidekiq.pid
@@ -31,12 +31,12 @@ module Recipes
         end
       end
 
-      @template.insert_into_file 'config/routes.rb', before: "Rails.application.routes.draw do\n" do <<-RUBY
-        require 'sidekiq/web'
-        RUBY
+      @template.insert_into_file 'config/routes.rb', before: "Rails.application.routes.draw do\n" do <<~RUBY
+      require 'sidekiq/web'
+      RUBY
       end
 
-      @template.insert_into_file 'config/routes.rb', after: "Rails.application.routes.draw do\n" do <<-RUBY
+      @template.insert_into_file 'config/routes.rb', after: "Rails.application.routes.draw do\n" do <<~RUBY
         namespace :admin do
           authenticate :user, lambda { |u| u.admin? } do
             mount Sidekiq::Web => '/sidekiq'
@@ -44,7 +44,7 @@ module Recipes
         end
         get '/404', to: 'errors#not_found'
         get '/500', to: 'errors#internal_error'
-        RUBY
+      RUBY
       end
     end
   end

@@ -8,7 +8,7 @@ module Recipes
     def init_file
       @template.run 'rails g bower_rails:initialize json'
       @template.remove_file 'bower.json'
-      @template.create_file 'bower.json' do <<-TEXT
+      @template.create_file 'bower.json' do <<~TEXT
         {
           "lib": {
             "name": "bower-rails generated lib assets",
@@ -21,11 +21,11 @@ module Recipes
           end
 
 
-          packages = resources.map { |package, version| "\"#{package}\": \"#{version}\"" }
+          packages = resources.map { |package, version| "\t\t\t\"#{package}\": \"#{version}\"" }
                               .join(",\n")
 
           @template.append_file 'bower.json', "#{packages}\n" unless packages.empty?
-          @template.append_file 'bower.json' do <<-TEXT
+          @template.append_file 'bower.json' do <<~TEXT
             }
           }
         }

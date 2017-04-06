@@ -126,9 +126,9 @@ class Pathfinder
            create_file 'application.yml'
            create_file 'application.yml.example'
            remove_file 'routes.rb'
-           create_file 'routes.rb' do <<-RUBY
-             Rails.application.routes.draw do
-             end
+           create_file 'routes.rb' do <<~RUBY
+           Rails.application.routes.draw do
+           end
            RUBY
            end
          end

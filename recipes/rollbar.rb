@@ -6,7 +6,7 @@ module Recipes
     end
 
     def init_file
-      @template.initializer 'rollbar.rb', <<-CODE
+      @template.initializer 'rollbar.rb', <<~CODE
       Rollbar.configure do |config|
         config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
         config.environment = ENV['ROLLBAR_ENV'] || Rails.env

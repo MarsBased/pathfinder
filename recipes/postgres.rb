@@ -8,7 +8,7 @@ module Recipes
     def init_file
       @template.inside 'config' do
         @template.remove_file 'database.yml'
-        @template.create_file 'database.yml' do <<-EOF
+        @template.create_file 'database.yml' do <<~EOF
           default: &default
             adapter: postgresql
             encoding: unicode

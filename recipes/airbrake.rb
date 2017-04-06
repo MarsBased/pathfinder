@@ -6,10 +6,10 @@ module Recipes
     end
 
     def init_file
-      @template.initializer 'airbrake.rb', <<-CODE
-        Airbrake.configure do |config|
-          config.api_key = ENV['AIRBRAKE_API_KEY']
-        end
+      @template.initializer 'airbrake.rb', <<~CODE
+      Airbrake.configure do |config|
+        config.api_key = ENV['AIRBRAKE_API_KEY']
+      end
       CODE
 
       @template.inside 'config' do

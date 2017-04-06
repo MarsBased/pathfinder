@@ -8,7 +8,7 @@ module Recipes
     end
 
     def init_file
-      @template.initializer 'carrierwave.rb', <<-CODE
+      @template.initializer 'carrierwave.rb', <<~CODE
       require 'carrierwave/storage/fog'
       CarrierWave.configure do |config|
         config.fog_provider = 'fog/aws'
