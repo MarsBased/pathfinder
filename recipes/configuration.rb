@@ -94,6 +94,9 @@ module Recipes
       inherit_from: https://raw.githubusercontent.com/MarsBased/marstyle/master/ruby/.rubocop.yml
       CODE
       end
+      @template.run 'rubocop public'
+      @template.remove_file '.rubocop.yml'
+      @template.run 'mv .rubocop-https---raw-githubusercontent-com-MarsBased-marstyle-master-ruby--rubocop-yml .rubocop.yml'
     end
 
   end
