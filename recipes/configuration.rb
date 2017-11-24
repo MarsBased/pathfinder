@@ -26,7 +26,7 @@ module Recipes
         group.gem 'spring'
         group.gem 'figaro'
         group.gem 'mailcatcher'
-        group.gem 'factory_girl_rails'
+        group.gem 'factory_bot_rails'
         group.gem 'faker'
         group.gem 'listen'
         group.gem 'pry-rails'
