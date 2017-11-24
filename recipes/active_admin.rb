@@ -2,7 +2,7 @@ module Recipes
   class ActiveAdmin < Base
 
     def gems
-      if @template.ask 'Will you need ActiveAdmin to have an admin area?'
+      if @template.yes? 'Will you need ActiveAdmin to have an admin area?'
         @install = true
         @template.gem 'activeadmin'
       end
