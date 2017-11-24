@@ -3,6 +3,7 @@ module Recipes
 
     def gems
       @template.gem 'sidekiq'
+      @template.gem 'sidekiq-failures'
       @template.gem 'sinatra', require: nil
     end
 
