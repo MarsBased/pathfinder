@@ -1,4 +1,5 @@
 require_relative 'recipes/base'
+require_relative 'recipes/active_admin'
 require_relative 'recipes/airbrake'
 require_relative 'recipes/assets'
 require_relative 'recipes/bower_rails'
@@ -58,6 +59,7 @@ class Pathfinder
      add_recipe(Recipes::Sidekiq.new(self))
      add_recipe(Recipes::SimpleForm.new(self))
      add_recipe(Recipes::BowerRails.new(self))
+     add_recipe(Recipes::ActiveAdmin.new(self))
    end
 
    def call
