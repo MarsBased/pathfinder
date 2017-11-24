@@ -11,7 +11,7 @@ module Recipes
     def init_file
       return unless @install
       msg = 'What will be the main user class for Devise and ActiveAdmin?'
-      user_classname = @template.ask msg, default: 'User'
+      user_classname = @template.ask msg, default: 'AdminUser'
       @template.run "rails g active_admin:install #{user_classname}"
     end
   end
