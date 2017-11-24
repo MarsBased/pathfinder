@@ -5,7 +5,6 @@ module Recipes
       if @template.ask 'Will you need ActiveAdmin to have an admin area?'
         @install = true
         @template.gem 'activeadmin'
-        @template.gem 'turbolinks'
       end
     end
 
