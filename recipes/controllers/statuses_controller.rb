@@ -1,4 +1,5 @@
 class StatusesController < ApplicationController
+
   def show
     check_database
     check_sidekiq_redis
@@ -14,4 +15,5 @@ class StatusesController < ApplicationController
   def check_sidekiq_redis
     Sidekiq.redis(&:info)
   end
+
 end
