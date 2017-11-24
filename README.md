@@ -9,7 +9,7 @@ Rails Template for MarsBased projects.
 The recommended way to use it is referencing the template directly from the Github repository.
 
 ```
-rails new new_app -m https://raw.githubusercontent.com/MarsBased/pathfinder-rails/master/template.rb
+rails new new_app -m https://raw.githubusercontent.com/MarsBased/pathfinder-rails/master/template.rb --skip-turbolinks
 ```
 
 ## How does it work
@@ -28,4 +28,4 @@ You just need to clone the repository
 
 make the desired changes and test it locally by using:
 
-```rails new new_app -m pathfinder_local_repo/template.rb```
+```rails new new_app -m pathfinder_local_repo/template.rb --skip-turbolinks```
