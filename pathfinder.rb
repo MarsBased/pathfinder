@@ -12,6 +12,7 @@ require_relative 'recipes/redis'
 require_relative 'recipes/rollbar'
 require_relative 'recipes/sidekiq'
 require_relative 'recipes/simple_form'
+require_relative 'recipes/status'
 require_relative 'recipes/utils'
 
 class Pathfinder
@@ -57,6 +58,7 @@ class Pathfinder
      add_recipe(Recipes::Redis.new(self))
      add_recipe(Recipes::Sidekiq.new(self))
      add_recipe(Recipes::SimpleForm.new(self))
+     add_recipe(Recipes::Status.new(self))
      add_recipe(Recipes::BowerRails.new(self))
    end
 
