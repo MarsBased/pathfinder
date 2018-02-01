@@ -7,6 +7,7 @@ module Recipes
 
     def gems
       @template.gem_group :test do |group|
+        group.gem 'database_cleaner', require: 'database_cleaner'
         group.gem 'factory_bot_rails'
         group.gem "fakeredis", require: "fakeredis/rspec"
         group.gem 'rspec-rails'
@@ -14,7 +15,6 @@ module Recipes
         group.gem 'shoulda-matchers', require: false
         # group.gem 'capybara', require: false
         # group.gem 'capybara-webkit', require: false
-        # group.gem 'database_cleaner', require: false
         # group.gem 'poltergeist', require: false
       end
 
@@ -38,10 +38,11 @@ module Recipes
     def setup_example_tests
       @template.create_file(File.join(*RSPEC_FOLDERS, EXAMPLE_SPEC_FILE)) do |file|
         <<~RSPEC
-          RSpec.describe 'Specs' do
-            context 'rspec' do
-              it { true == true }
-            end
+          RSpec.describe 'Dependencies' do
+            it('has rspec') { true == true }
+            it('has FakeRedis') { expect(FakeRedis).to_not be nil }
+            it('has DatabaseCleaner') { expect(DatabaseCleaner).to_not be nil }
+            it('has shoulda_matchers') { expect(self).to respond_to :is_expected }
           end
         RSPEC
       end
@@ -62,8 +63,6 @@ module Recipes
         SimpleCov.start 'rails'
         SIMPLECOV
       end
-
-
     end
   end
 end
