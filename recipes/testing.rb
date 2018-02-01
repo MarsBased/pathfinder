@@ -9,6 +9,7 @@ module Recipes
       @template.gem_group :test do |group|
         group.gem 'database_cleaner', require: 'database_cleaner'
         group.gem 'factory_bot_rails'
+        group.gem 'faker', require: 'faker'
         group.gem "fakeredis", require: "fakeredis/rspec"
         group.gem 'rspec-rails'
         group.gem 'simplecov', require: false
@@ -43,6 +44,7 @@ module Recipes
             it('has FakeRedis') { expect(FakeRedis).to_not be nil }
             it('has DatabaseCleaner') { expect(DatabaseCleaner).to_not be nil }
             it('has shoulda_matchers') { expect(self).to respond_to :is_expected }
+            it('has Faker') { expect(Faker::Robin.quote).to include 'Holy' }
           end
         RSPEC
       end
