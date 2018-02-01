@@ -22,7 +22,6 @@ module Recipes
       @template.gem_group :development, :test do |group|
         group.gem 'bundler-audit', require: false
         group.gem 'byebug'
-        group.gem 'rspec-rails'
         group.gem 'spring'
         group.gem 'figaro'
         group.gem 'letter_opener_web'
@@ -36,18 +35,7 @@ module Recipes
       end
 
       @template.gem_group :development do |group|
-        group.gem 'spring-commands-rspec', require: false
         group.gem 'better_errors'
-      end
-
-      @template.gem_group :test do |group|
-        group.gem 'simplecov', require: false
-        group.gem 'capybara', require: false
-        group.gem 'capybara-webkit', require: false
-        group.gem 'database_cleaner', require: false
-        group.gem 'fakeredis', require: false
-        group.gem 'poltergeist', require: false
-        group.gem 'shoulda-matchers', require: false
       end
     end
 
