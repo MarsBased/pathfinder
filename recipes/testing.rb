@@ -31,7 +31,7 @@ module Recipes
       setup_database_cleaner
       setup_simplecov
 
-      setup_example_tests
+      setup_example_specs
     end
 
     private
@@ -40,7 +40,7 @@ module Recipes
       @template.generate 'rspec:install'
     end
 
-    def setup_example_tests
+    def setup_example_specs
       @template.create_file(File.join(*RSPEC_UNIT_FOLDERS, 'dependencies_spec.rb')) do |file|
         <<~RSPEC
           require 'rails_helper'
