@@ -5,9 +5,9 @@ require_relative 'recipes/assets'
 require_relative 'recipes/bower_rails'
 require_relative 'recipes/carrier_wave'
 require_relative 'recipes/configuration'
+require_relative 'recipes/database'
 require_relative 'recipes/devise'
 require_relative 'recipes/git_ignore'
-require_relative 'recipes/postgres'
 require_relative 'recipes/pundit'
 require_relative 'recipes/redis'
 require_relative 'recipes/rollbar'
@@ -40,8 +40,7 @@ class Pathfinder
    end
 
    def ask_for_recipes
-     add_recipe(Recipes::Postgres.new(self))
-
+     add_recipe(Recipes::Database.new(self))
      add_recipe(Recipes::CarrierWave.new(self)) if @template.yes?('Do you want to use Carrierwave?')
      aux = case @template.ask('Choose Monitoring Engine:',
                     limited_to: %w(rollbar airbrake none))
