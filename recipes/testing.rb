@@ -21,7 +21,7 @@ module Recipes
       @template.gem 'spring-commands-rspec', require: false, group: :development
     end
 
-    def init_file
+    def cook
       setup_rspec
       setup_factory_bot
       setup_faker
