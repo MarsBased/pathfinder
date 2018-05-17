@@ -18,14 +18,12 @@ module Recipes
         group.gem 'selenium-webdriver'
         group.gem 'shoulda-matchers'
       end
-      @template.gem 'puma'
       @template.gem 'spring-commands-rspec', require: false, group: :development
     end
 
     def init_file
       setup_rspec
       setup_factory_bot
-      setup_capybara
       setup_faker
       setup_fakeredis
       setup_database_cleaner
@@ -41,7 +39,9 @@ module Recipes
     end
 
     def setup_example_specs
-      @template.create_file(File.join(*RSPEC_UNIT_FOLDERS, 'dependencies_spec.rb')) do |file|
+      @template.create_file(
+        File.join(*RSPEC_UNIT_FOLDERS, 'dependencies_spec.rb')
+      ) do |file|
         <<~RSPEC
           require 'rails_helper'
 
@@ -54,20 +54,6 @@ module Recipes
           end
         RSPEC
       end
-
-      @template.create_file(File.join(*RSPEC_SYSTEM_FOLDERS, 'dependencies_system_spec.rb')) do |file|
-        <<~RSPEC
-        require 'rails_helper'
-
-        RSpec.describe 'System', type: :system do
-          it 'has integration tests' do
-            visit('/404')
-
-            expect(page).to have_content("The page you were looking for doesn't exist")
-          end
-        end
-        RSPEC
-      end
     end
 
     def setup_factory_bot
@@ -76,7 +62,8 @@ module Recipes
 
     def setup_simplecov
       @template.insert_into_file(
-        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'), before: "RSpec.configure do |config|\n"
+        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'),
+        before: "RSpec.configure do |config|\n"
       ) do
         <<~SIMPLECOV
         require 'simplecov'
@@ -87,7 +74,8 @@ module Recipes
 
     def setup_fakeredis
       @template.insert_into_file(
-        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'), before: "RSpec.configure do |config|\n"
+        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'),
+        before: "RSpec.configure do |config|\n"
       ) do
         <<~CONFIG
         require 'fakeredis/rspec'
@@ -97,7 +85,8 @@ module Recipes
 
     def setup_database_cleaner
       @template.insert_into_file(
-        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'), before: "RSpec.configure do |config|\n"
+        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'),
+        before: "RSpec.configure do |config|\n"
       ) do
         <<~CONFIG
         require 'database_cleaner'
@@ -105,50 +94,13 @@ module Recipes
       end
     end
 
-    def setup_shoulda_matchers
-      @template.insert_into_file(
-        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'), before: "RSpec.configure do |config|\n"
-      ) do
-        <<~CONFIG
-        require 'shoulda_matchers'
-        CONFIG
-      end
-    end
-
     def setup_faker
       @template.insert_into_file(
-        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'), before: "RSpec.configure do |config|\n"
+        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'),
+        before: "RSpec.configure do |config|\n"
       ) do
         <<~CONFIG
         require 'faker'
-        CONFIG
-      end
-    end
-
-    def setup_capybara
-      @template.insert_into_file(
-        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'), after: "require 'rspec/rails'\n"
-      ) do
-        <<~CONFIG
-        require 'capybara/rspec'
-
-        Capybara.javascript_driver = :poltergeist
-        CONFIG
-      end
-
-      @template.insert_into_file(
-        File.join(RSPEC_ROOT_FOLDER, 'rails_helper.rb'), after: "RSpec.configure do |config|\n"
-      ) do
-        <<~CONFIG
-        config.include Capybara::DSL
-
-        config.before(:each, type: :system) do
-          driven_by :rack_test
-        end
-
-        config.before(:each, type: :system, js: true) do
-          driven_by :selenium_chrome_headless
-        end
         CONFIG
       end
     end
