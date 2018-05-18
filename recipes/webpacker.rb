@@ -37,7 +37,10 @@ module Recipes
     end
 
     def resources
-      [['jquery', '3.3.1'], ['select2', '4.0.3'], ['lodash', '4.16.6']]
+      [['jquery', '3.3.1'],
+       ['select2', '4.0.3'],
+       ['lodash', '4.16.6'],
+       ['webpack-md5-hash','0.0.6']]
     end
 
   end
