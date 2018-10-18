@@ -18,10 +18,8 @@ module Recipes
       end
       CODE
 
-      @template.inside 'config' do
-        @template.append_file '.env.example', "\nROLLBAR_ACCESS_TOKEN=''"
-        @template.append_file '.env', "\nROLLBAR_ACCESS_TOKEN=''"
-      end
+      @template.append_file '.env.example', "\nROLLBAR_ACCESS_TOKEN=''"
+      @template.append_file '.env', "\nROLLBAR_ACCESS_TOKEN=''"
     end
   end
 end
