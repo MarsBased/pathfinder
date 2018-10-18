@@ -30,6 +30,7 @@ class Pathfinder
     add_configurator(Configurators::ActiveAdmin.new(self))
     add_configurator(Configurators::FormFramework.new(self))
     add_configurator(Configurators::ImageMagick.new(self))
+    add_configurator(Configurators::Sentry.new(self))
   end
 
   def call
