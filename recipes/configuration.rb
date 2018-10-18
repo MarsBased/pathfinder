@@ -56,7 +56,7 @@ module Recipes
 
     def create_env_file
       @template.create_file '.env'
-      @template.create_file '.env.example'
+      @template.create_file '.env.sample'
     end
 
     def create_routes_file

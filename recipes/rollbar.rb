@@ -18,7 +18,7 @@ module Recipes
       end
       CODE
 
-      @template.append_file '.env.example', "\nROLLBAR_ACCESS_TOKEN=''"
+      @template.append_file '.env.sample', "\nROLLBAR_ACCESS_TOKEN=''"
       @template.append_file '.env', "\nROLLBAR_ACCESS_TOKEN=''"
     end
   end

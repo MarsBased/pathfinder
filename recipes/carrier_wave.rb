@@ -30,11 +30,11 @@ module Recipes
       end
       CODE
 
-      @template.append_file '.env.example', "\nAWS_ACCESS_KEY=''"
+      @template.append_file '.env.sample', "\nAWS_ACCESS_KEY=''"
       @template.append_file '.env', "\nAWS_ACCESS_KEY=''"
-      @template.append_file '.env.example', "\nAWS_SECRET_KEY=''"
+      @template.append_file '.env.sample', "\nAWS_SECRET_KEY=''"
       @template.append_file '.env', "\nAWS_SECRET_KEY=''"
-      @template.append_file '.env.example', "\nAWS_S3_BUCKET=''"
+      @template.append_file '.env.sample', "\nAWS_S3_BUCKET=''"
       @template.append_file '.env', "\nAWS_S3_BUCKET=''"
     end
 

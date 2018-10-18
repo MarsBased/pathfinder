@@ -18,8 +18,8 @@ module Recipes
       end
       CODE
 
-      @template.append_file '.env.example', "\nAIRBRAKE_PROJECT_ID=''"
-      @template.append_file '.env.example', "\nAIRBRAKE_PROJECT_KEY=''"
+      @template.append_file '.env.sample', "\nAIRBRAKE_PROJECT_ID=''"
+      @template.append_file '.env.sample', "\nAIRBRAKE_PROJECT_KEY=''"
       @template.append_file '.env', "\nAIRBRAKE_PROJECT_ID=''"
       @template.append_file '.env', "\nAIRBRAKE_PROJECT_KEY=''"
     end
