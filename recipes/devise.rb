@@ -8,6 +8,7 @@ module Recipes
     end
 
     def cook
+      avoid_devise_conflict if previous_devise_config?
       @template.generate 'devise:install'
       add_development_env_config
       add_route_config
@@ -35,6 +36,14 @@ module Recipes
         \s\send
       RUBY
       end
+    end
+
+    def avoid_devise_conflict
+      @template.remove_file 'config/initializers/devise.rb'
+    end
+
+    def previous_devise_config?
+      @pathfinder.recipes_list.map(&:class).include?(Recipes::ActiveAdmin)
     end
 
   end
