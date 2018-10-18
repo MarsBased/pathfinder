@@ -5,13 +5,18 @@ module Recipes
     end
 
     def gems
-      @template.gem 'rails', '~> 5.1.0'
+      @template.gem 'rails', '~> 5.2.1'
 
       @template.gem 'aasm'
       @template.gem 'keynote'
       @template.gem 'kaminari'
       @template.gem 'premailer-rails'
       @template.gem 'bootsnap'
+
+      @template.gem_group :development do |group|
+        group.gem 'better_errors'
+        group.gem 'listen'
+      end
 
       yield if block_given?
 
@@ -22,15 +27,10 @@ module Recipes
         group.gem 'letter_opener_web'
         group.gem 'factory_bot_rails'
         group.gem 'faker'
-        group.gem 'listen'
         group.gem 'pry-rails'
         group.gem 'pry-coolline'
         group.gem 'pry-byebug'
         group.gem 'rubocop', require: false
-      end
-
-      @template.gem_group :development do |group|
-        group.gem 'better_errors'
       end
     end
 
@@ -38,6 +38,7 @@ module Recipes
       create_env_file
       create_hound_yml
       create_routes_file
+      remove_secret_files
       set_error_handling
       add_rubocop
     end
@@ -66,6 +67,11 @@ module Recipes
         end
       RUBY
       end
+    end
+
+    def remove_secret_files
+      @template.remove_file 'config/credentials.yml.enc'
+      @template.remove_file 'config/master.key'
     end
 
     def set_error_handling
