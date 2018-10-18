@@ -7,6 +7,10 @@ module Recipes
     def gems
       @template.gem 'rails', '~> 5.2.1'
 
+      @template.gem 'puma', '~> 3.11'
+      @template.gem 'sass-rails', '~> 5.0'
+      @template.gem 'uglifier', '>= 1.3.0'
+
       @template.gem 'aasm'
       @template.gem 'keynote'
       @template.gem 'kaminari'
