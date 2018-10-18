@@ -10,5 +10,6 @@ module Recipes
         @template.append_file 'application.yml.example', "\nSENTRY_DSN: ''"
       end
     end
+
   end
 end
