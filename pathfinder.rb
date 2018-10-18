@@ -28,6 +28,7 @@ class Pathfinder
   def ask_for_configurators
     add_recipe_from_configurator(Configurators::Monitoring.new(self))
     add_configurator(Configurators::PostgresDatabaseUuids.new(self))
+    add_recipe_from_configurator(Configurators::Ci.new(self))
     add_configurator(Configurators::ActiveAdmin.new(self))
     add_configurator(Configurators::FormFramework.new(self))
     add_configurator(Configurators::ImageMagick.new(self))
