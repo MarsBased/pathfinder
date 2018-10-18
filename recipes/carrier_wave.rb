@@ -30,14 +30,12 @@ module Recipes
       end
       CODE
 
-      @template.inside 'config' do
-        @template.append_file 'application.yml.example', "\nAWS_ACCESS_KEY: ''"
-        @template.append_file 'application.yml', "\nAWS_ACCESS_KEY: ''"
-        @template.append_file 'application.yml.example', "\nAWS_SECRET_KEY: ''"
-        @template.append_file 'application.yml', "\nAWS_SECRET_KEY: ''"
-        @template.append_file 'application.yml.example', "\nAWS_S3_BUCKET: ''"
-        @template.append_file 'application.yml', "\nAWS_S3_BUCKET: ''"
-      end
+      @template.append_file '.env.example', "\nAWS_ACCESS_KEY=''"
+      @template.append_file '.env', "\nAWS_ACCESS_KEY=''"
+      @template.append_file '.env.example', "\nAWS_SECRET_KEY=''"
+      @template.append_file '.env', "\nAWS_SECRET_KEY=''"
+      @template.append_file '.env.example', "\nAWS_S3_BUCKET=''"
+      @template.append_file '.env', "\nAWS_S3_BUCKET=''"
     end
 
   end

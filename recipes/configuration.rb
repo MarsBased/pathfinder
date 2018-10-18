@@ -19,7 +19,6 @@ module Recipes
         group.gem 'bundler-audit', require: false
         group.gem 'byebug'
         group.gem 'spring'
-        group.gem 'figaro'
         group.gem 'letter_opener_web'
         group.gem 'factory_bot_rails'
         group.gem 'faker'
@@ -36,7 +35,7 @@ module Recipes
     end
 
     def cook
-      create_application_yml
+      create_env_file
       create_hound_yml
       create_routes_file
       set_error_handling
@@ -55,9 +54,9 @@ module Recipes
       end
     end
 
-    def create_application_yml
-      @template.create_file 'config/application.yml'
-      @template.create_file 'config/application.yml.example'
+    def create_env_file
+      @template.create_file '.env'
+      @template.create_file '.env.example'
     end
 
     def create_routes_file

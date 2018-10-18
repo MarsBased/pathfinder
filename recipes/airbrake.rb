@@ -18,12 +18,10 @@ module Recipes
       end
       CODE
 
-      @template.inside 'config' do
-        @template.append_file 'application.yml.example', "\nAIRBRAKE_PROJECT_ID: ''"
-        @template.append_file 'application.yml.example', "\nAIRBRAKE_PROJECT_KEY: ''"
-        @template.append_file 'application.yml', "\nAIRBRAKE_PROJECT_ID: ''"
-        @template.append_file 'application.yml', "\nAIRBRAKE_PROJECT_KEY: ''"
-      end
+      @template.append_file '.env.example', "\nAIRBRAKE_PROJECT_ID=''"
+      @template.append_file '.env.example', "\nAIRBRAKE_PROJECT_KEY=''"
+      @template.append_file '.env', "\nAIRBRAKE_PROJECT_ID=''"
+      @template.append_file '.env', "\nAIRBRAKE_PROJECT_KEY=''"
     end
   end
 end
