@@ -6,9 +6,8 @@ module Recipes
     end
 
     def cook
-      @template.inside 'config' do
-        @template.append_file 'application.yml.example', "\nSENTRY_DSN: ''"
-      end
+      @template.append_file '.env.sample', "\nSENTRY_DSN=''"
+      @template.append_file '.env', "\nSENTRY_DSN=''"
     end
 
   end
