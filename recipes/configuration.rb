@@ -5,7 +5,7 @@ module Recipes
     end
 
     def gems
-      @template.gem 'rails', '~> 5.2.1'
+      @template.gem 'rails', '~> 6.0.0'
 
       @template.gem 'puma', '~> 3.11'
       @template.gem 'sass-rails', '~> 5.0'

@@ -6,7 +6,7 @@ module Recipes
     def gems
       case @template.options.database
       when 'postgresql'
-        @template.gem 'pg', '~> 0.18'
+        @template.gem 'pg'
       when 'mysql'
         @template.gem 'mysql2', '>= 0.3.18'
       else

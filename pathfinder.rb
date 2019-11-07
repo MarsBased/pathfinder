@@ -1,3 +1,12 @@
+# frozen_string_literal: true
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'tty-prompt'
+end
+
 require_relative 'configurators'
 require_relative 'utils'
 require 'tty-prompt'
@@ -7,7 +16,6 @@ Dir[File.join(__dir__, 'recipes', '*.rb')].each do |recipe_file|
 end
 
 class Pathfinder
-
   attr_reader :template, :app_name, :utils, :prompt, :recipes_list
 
   def initialize(app_name, template)
@@ -47,7 +55,8 @@ class Pathfinder
 
       ruby_version = pathfinder.utils.ask_with_default(
         'Which version of ruby do you want to use?',
-        RUBY_VERSION)
+        RUBY_VERSION
+      )
 
       append_file 'Gemfile', "ruby '#{ruby_version}'"
 
@@ -110,5 +119,4 @@ class Pathfinder
   def configurators_operation(method)
     @configurators_list.map(&method.to_sym)
   end
-
 end
