@@ -20,6 +20,7 @@ module Recipes
       @template.gem_group :development do |group|
         group.gem 'better_errors'
         group.gem 'listen'
+        group.gem 'brakeman'
       end
 
       yield if block_given?
