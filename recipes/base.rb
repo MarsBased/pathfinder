@@ -23,5 +23,13 @@ module Recipes
 
     def cook
     end
+
+    private
+
+    def relative_file_content(path)
+      caller_path = caller_locations.first.path
+      puts caller_path
+      File.read(File.join(File.dirname(caller_path), path))
+    end
   end
 end

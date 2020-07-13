@@ -13,9 +13,22 @@ module Recipes
 
     private
 
+    def run_generators
+      case ask_framework_for_forms
+      when 'marsman'
+        @template.initializer 'simple_form.rb',
+                              relative_file_content('simple_form/marsman.rb')
+      when 'bootstrap'
+        @template.generate 'simple_form:install --bootstrap'
+      else
+        @template.generate 'simple_form:install'
+      end
+    end
+
     def add_sample_i18n
       @template.run 'rm config/locales/simple_form.en.yml'
-      @template.append_to_file 'config/locales/en.yml', simple_form_locale('en.yml')
+      @template.append_to_file 'config/locales/en.yml',
+                               relative_file_content('simple_form/en.yml')
     end
 
     def simple_form_locale(filename)

@@ -1,0 +1,15 @@
+production:
+  first_thing:
+    - snippet: cloud66/node
+      target: rails
+      execute: true
+    - snippet: cloud66/newrelic
+      target: any
+      execute: true
+  after_rails:
+    - source: /.cloud66/cache_permissions.sh
+      destination: /tmp/cache_permissions.sh
+      target: rails
+      run_on: all_servers
+      execute: true
+      sudo: true
